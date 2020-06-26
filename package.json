@@ -13,10 +13,11 @@
     "supertest": "^4.0.2"
   },
   "devDependencies": {
+    "@shelf/jest-mongodb": "^1.1.5",
     "dotenv": "^8.2.0"
   },
   "scripts": {
-    "test": "jest --detectOpenHandles",
+    "test": "jest --detectOpenHandles --forceExit",
     "dev": "nodemon bin/server.js"
   },
   "keywords": [],
