@@ -11,12 +11,13 @@ class UserController{
                 user = await User.findOne({email: username})
             }
             let {_id, email} = user
-            // if(comparePassword(password, user.password)){
-            // }
-            let access_token = generateToken({ _id, email, username: user.username })
-            res.status(200).json({access_token})
+            if(comparePassword(password, user.password)){
+                let access_token = generateToken({ _id, email, username: user.username })
+                res.status(200).json({access_token})
+            } else {
+                res.status(400).json({error: 'password not match'})
+            }
         } catch (error) {
-            console.log(error)
             res.status(500).json({error})
         }
     }
@@ -30,11 +31,13 @@ class UserController{
                 password,
                 confirmPassword
             })
+            if(password !== confirmPassword){
+                throw Error('password not match')
+            }
             const newUser = await user.save()
             let access_token = generateToken({_id: newUser._id, email: newUser.email, username: newUser.username})
-            res.status(201).json({access_token})
+            res.status(201).json({access_token})            
         } catch (error) {
-            // console.log(error.errors.password.properties.type)
             if(error.keyValue){
                 if(error.keyValue.email){
                     res.status(400).json({error: 'email already exists'})
@@ -42,12 +45,38 @@ class UserController{
                     res.status(400).json({error: 'username already exists'})
                 } 
             } else if(error.errors) {
-                if(error.errors.password.properties.type){
-                    res.status(400).json({error: 'password length min have 8 characters'})
-                }  else if(error.errors.confirmPassword.properties.message) {
-                    const msg = error.errors.confirmPassword.properties.message
-                    res.status(400).json({error: msg})
+                if(error.errors.password){
+                    const message = error.errors.password.properties.type
+                    if(message == 'required'){
+                        res.status(400).json({error: 'field must not be empty'})
+                    }  
+                    if(message == 'minlength'){
+                        res.status(400).json({error: 'password length must have 8 characters'})
+                    }
+                } else if(error.errors.email){
+                    const message = error.errors.email.properties
+                    if(message.type == 'required'){
+                        res.status(400).json({error: 'field must not be empty'})
+                    }
+                    if(message.type == 'user defined'){
+                        res.status(400).json({error: message.message})
+                    }
+                } else if(error.errors.username){
+                    const message = error.errors.username.properties.type
+                    if(message == 'required'){
+                        res.status(400).json({error: 'field must not be empty'})
+                    }  
+                } else if(error.errors.confirmPassword){
+                    const message = error.errors.confirmPassword.properties.type
+                    if(message == 'required'){
+                        res.status(400).json({error: 'field must not be empty'})
+                    }  
+                    if(message == 'minlength'){
+                        res.status(400).json({error: 'password length must have 8 characters'})
+                    }
                 }
+            } else if(error.message){
+                res.status(400).json({error: error.message})
             } else {
                 res.status(500).json({error: 'something went wrong'})
             }
