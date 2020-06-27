@@ -1,16 +1,13 @@
 const mongoose = require('mongoose')
 const {generatePassword} = require('../helper/bcrypt')
-const { use } = require('../router')
+const {isEmail} = require('validator')
 
 const UserSchema = new mongoose.Schema({
     email: {
         type: String,
         required: [true],
         unique: true,
-        validate: {
-            validator: () => Promise.resolve(false),
-            message: 'please enter valid email'
-        }
+        validate: [isEmail, 'please enter valid email']
     },
     username: {
         type: String,
@@ -35,10 +32,5 @@ UserSchema.pre('save', function(next){
 })
 
 const User = mongoose.model('users', UserSchema)
-
-// User.path('email').validate(function (email) {
-//     var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-//     return emailRegex.test(email.text); // Assuming email has a text attribute
-//  }, 'test email validate')
 
 module.exports = User

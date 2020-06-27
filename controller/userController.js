@@ -51,7 +51,7 @@ class UserController{
                         res.status(400).json({error: 'field must not be empty'})
                     }  
                     if(message == 'minlength'){
-                        res.status(400).json({error: 'password length must have 8 characters'})
+                        res.status(400).json({error: 'password length min have 8 characters'})
                     }
                 } else if(error.errors.email){
                     const message = error.errors.email.properties
@@ -72,7 +72,7 @@ class UserController{
                         res.status(400).json({error: 'field must not be empty'})
                     }  
                     if(message == 'minlength'){
-                        res.status(400).json({error: 'password length must have 8 characters'})
+                        res.status(400).json({error: 'password length min have 8 characters'})
                     }
                 }
             } else if(error.message){
