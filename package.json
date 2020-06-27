@@ -10,14 +10,15 @@
     "jest": "^26.1.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.20",
-    "supertest": "^4.0.2"
+    "supertest": "^4.0.2",
+    "validator": "^13.1.1"
   },
   "devDependencies": {
     "@shelf/jest-mongodb": "^1.1.5",
     "dotenv": "^8.2.0"
   },
   "scripts": {
-    "test": "jest --detectOpenHandles --forceExit",
+    "test": "jest --detectOpenHandles --verbose --forceExit",
     "dev": "nodemon bin/server.js"
   },
   "keywords": [],
