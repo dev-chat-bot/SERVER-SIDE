@@ -20,7 +20,6 @@ afterAll( async () => {
 describe('User Model Test', () => {
     
     it('register successfully', async () => {
-        // Object Id should be defined when successfully saved to MongoDB.
         try {
             const savedUser = await request(app).post('/register').send(userData)
             expect(savedUser.body).toHaveProperty('access_token', expect.any(String))
