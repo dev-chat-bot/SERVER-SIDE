@@ -1,0 +1,14 @@
+[
+  {
+    "keyword": "apollo client initialization",
+    "data": "This is how to setup apollo client initialization"
+  },
+  {
+    "keyword": "apollo client mutation",
+    "data": "This is how to setup apollo client mutation"
+  },
+  {
+    "keyword": "mongoose configuration",
+    "data": "This is how to setup mongoose configuration"
+  }
+]
