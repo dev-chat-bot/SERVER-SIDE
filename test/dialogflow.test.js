@@ -37,20 +37,34 @@ describe("Dialogflow Connection Test", () => {
         .post("/dialogflow")
         .set("token", token)
         .send(userExpression)
-      expect(response[0].queryResult).toHaveProperty("queryText")
-      expect(response[0].queryResult).toHaveProperty("queryFullfilmentText")
+      expect(response.body).toHaveProperty("queryText")
+      expect(response.body).toHaveProperty("fulfillmentText")
     } catch (error) {
       console.log(error)
     }
   })
 
-  it("It will failed to connect to dialogflow", async () => {
+  it("failed connect to dialogflow because user is not login", async () => {
     try {
       const response = await request(app)
         .post("/dialogflow")
         .set("token", null)
         .send(userExpression)
       expect(response.body.error).toContain("Please Login First")
+      expect(response.status).toBe(400)
+    } catch (error) {
+      console.log(error)
+    }
+  })
+
+  it("failed connect to dialogflow because user is not login", async () => {
+    try {
+      const response = await request(app)
+        .post("/dialogflow")
+        .set("token", token)
+        .send({text: ''})
+      expect(response.body).toHaveProperty("error")
+      expect(response.status).toBe(500)
     } catch (error) {
       console.log(error)
     }
