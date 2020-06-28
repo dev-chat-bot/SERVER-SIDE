@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1593333691356" clover="3.2.0">
-  <project timestamp="1593333691356" name="All files">
-    <metrics statements="117" coveredstatements="109" conditionals="36" coveredconditionals="31" methods="8" coveredmethods="7" elements="161" coveredelements="147" complexity="0" loc="117" ncloc="117" packages="5" files="9" classes="9"/>
+<coverage generated="1593338905832" clover="3.2.0">
+  <project timestamp="1593338905832" name="All files">
+    <metrics statements="131" coveredstatements="128" conditionals="38" coveredconditionals="32" methods="10" coveredmethods="10" elements="179" coveredelements="170" complexity="0" loc="131" ncloc="131" packages="6" files="10" classes="10"/>
     <package name="SERVER-SIDE">
       <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="app.js" path="D:\LEARN\Hacktiv8\Phase 3\final project\SERVER-SIDE\app.js">
@@ -21,9 +21,9 @@
       </file>
     </package>
     <package name="SERVER-SIDE.controller">
-      <metrics statements="69" coveredstatements="62" conditionals="36" coveredconditionals="31" methods="3" coveredmethods="3"/>
+      <metrics statements="69" coveredstatements="66" conditionals="36" coveredconditionals="31" methods="3" coveredmethods="3"/>
       <file name="dialogflowController.js" path="D:\LEARN\Hacktiv8\Phase 3\final project\SERVER-SIDE\controller\dialogflowController.js">
-        <metrics statements="17" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <metrics statements="17" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
@@ -34,12 +34,12 @@
         <line num="11" count="1" type="stmt"/>
         <line num="13" count="1" type="stmt"/>
         <line num="23" count="1" type="stmt"/>
-        <line num="24" count="0" type="stmt"/>
-        <line num="25" count="0" type="stmt"/>
-        <line num="26" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="28" count="0" type="stmt"/>
-        <line num="30" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="27" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
         <line num="35" count="2" type="stmt"/>
       </file>
       <file name="userController.js" path="D:\LEARN\Hacktiv8\Phase 3\final project\SERVER-SIDE\controller\userController.js">
@@ -62,14 +62,14 @@
         <line num="24" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="25" count="1" type="stmt"/>
         <line num="27" count="0" type="stmt"/>
-        <line num="33" count="9" type="stmt"/>
-        <line num="34" count="9" type="stmt"/>
-        <line num="35" count="9" type="stmt"/>
-        <line num="41" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="33" count="10" type="stmt"/>
+        <line num="34" count="10" type="stmt"/>
+        <line num="35" count="10" type="stmt"/>
+        <line num="41" count="10" type="cond" truecount="2" falsecount="0"/>
         <line num="42" count="1" type="stmt"/>
-        <line num="44" count="8" type="stmt"/>
-        <line num="45" count="1" type="stmt"/>
-        <line num="46" count="1" type="stmt"/>
+        <line num="44" count="9" type="stmt"/>
+        <line num="45" count="2" type="stmt"/>
+        <line num="46" count="2" type="stmt"/>
         <line num="48" count="8" type="cond" truecount="2" falsecount="0"/>
         <line num="49" count="2" type="cond" truecount="2" falsecount="0"/>
         <line num="50" count="1" type="stmt"/>
@@ -99,22 +99,40 @@
       </file>
     </package>
     <package name="SERVER-SIDE.helper">
-      <metrics statements="10" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
+      <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
       <file name="bcrypt.js" path="D:\LEARN\Hacktiv8\Phase 3\final project\SERVER-SIDE\helper\bcrypt.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="2" type="stmt"/>
-        <line num="4" count="3" type="stmt"/>
-        <line num="5" count="3" type="stmt"/>
-        <line num="6" count="3" type="stmt"/>
+        <line num="4" count="4" type="stmt"/>
+        <line num="5" count="4" type="stmt"/>
+        <line num="6" count="4" type="stmt"/>
         <line num="10" count="2" type="stmt"/>
         <line num="13" count="2" type="stmt"/>
       </file>
       <file name="jwt.js" path="D:\LEARN\Hacktiv8\Phase 3\final project\SERVER-SIDE\helper\jwt.js">
-        <metrics statements="4" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
         <line num="1" count="2" type="stmt"/>
-        <line num="4" count="2" type="stmt"/>
-        <line num="8" count="0" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
         <line num="11" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="SERVER-SIDE.middlewares">
+      <metrics statements="12" coveredstatements="12" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="2"/>
+      <file name="AuthoAuthen.js" path="D:\LEARN\Hacktiv8\Phase 3\final project\SERVER-SIDE\middlewares\AuthoAuthen.js">
+        <metrics statements="12" coveredstatements="12" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="2"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="19" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
       </file>
     </package>
     <package name="SERVER-SIDE.model">
@@ -126,22 +144,24 @@
         <line num="3" count="2" type="stmt"/>
         <line num="5" count="2" type="stmt"/>
         <line num="28" count="2" type="stmt"/>
-        <line num="29" count="3" type="stmt"/>
-        <line num="30" count="3" type="stmt"/>
-        <line num="31" count="3" type="stmt"/>
+        <line num="29" count="4" type="stmt"/>
+        <line num="30" count="4" type="stmt"/>
+        <line num="31" count="4" type="stmt"/>
         <line num="34" count="2" type="stmt"/>
         <line num="36" count="2" type="stmt"/>
       </file>
     </package>
     <package name="SERVER-SIDE.router">
-      <metrics statements="16" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="18" coveredstatements="18" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="dialogflow.js" path="D:\LEARN\Hacktiv8\Phase 3\final project\SERVER-SIDE\router\dialogflow.js">
-        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
-        <line num="5" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
         <line num="7" count="2" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
       </file>
       <file name="index.js" path="D:\LEARN\Hacktiv8\Phase 3\final project\SERVER-SIDE\router\index.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
