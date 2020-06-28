@@ -16,7 +16,7 @@ class UserController{
             let {_id, email} = user
             if(comparePassword(password, user.password)){
                 let access_token = generateToken({ _id, email, username: user.username })
-                res.status(200).json({access_token})
+                res.status(200).json({access_token, username})
             } else {
                 res.status(400).json({error: 'password not match'})
             }
@@ -43,7 +43,7 @@ class UserController{
             }
             const newUser = await user.save()
             let access_token = generateToken({_id: newUser._id, email: newUser.email, username: newUser.username})
-            res.status(201).json({access_token})
+            res.status(201).json({access_token, username: newUser.username})
         } catch (error) {
             if(error.keyValue){
                 if(error.keyValue.email){
@@ -79,6 +79,31 @@ class UserController{
             } else {
                 res.status(500).json({error: 'something went wrong'})
             }
+        }
+    }
+
+    static async facebookLogin(req, res){
+        const {email} = req.body
+        try {
+            let userEmail = await User.findOne({email})
+            if(userEmail){
+                console.log(userEmail)
+                let {_id, username, email} = userEmail
+                let access_token = generateToken({_id, username, email})
+                res.status(200).json({access_token, username})
+            } else {
+                let user = new User({
+                    email,
+                    username: email.split('@')[0],
+                    password: process.env.PASSWORD,
+                    confirmPassword: process.env.PASSWORD
+                })
+                let newUser = await user.save()
+                let access_token = generateToken({_id: newUser._id, email: newUser.email, username: newUser.username})
+                res.status(201).json({access_token, username: newUser.username})
+            }
+        } catch (error) {
+            res.status(500).json({error: 'something went wrong'})
         }
     }
 }

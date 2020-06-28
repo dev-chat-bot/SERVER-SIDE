@@ -23,6 +23,7 @@ describe('User Model Test', () => {
         try {
             const savedUser = await request(app).post('/register').send(userData)
             expect(savedUser.body).toHaveProperty('access_token', expect.any(String))
+            expect(savedUser.body).toHaveProperty('username', expect.any(String))
             expect(savedUser.status).toBe(201);
         } catch (error) {
             console.log(error)
@@ -113,6 +114,7 @@ describe('User Model Test', () => {
         try {
             const validUser = await request(app).post('/login').send(userData)
             expect(validUser.body).toHaveProperty('access_token', expect.any(String))
+            expect(savedUser.body).toHaveProperty('username', expect.any(String))
             expect(validUser.status).toBe(200);
         } catch (error) {
             console.log(error)
@@ -137,5 +139,27 @@ describe('User Model Test', () => {
         } catch (error) {
             console.log(error)
         }
+    })
+
+    it('success facebook login with existing email', async () => {
+        try {
+            const validUser = await request(app).post('/facebooklogin').send({email: 'kalys100@gmail.com'})
+            expect(validUser.body).toHaveProperty('access_token', expect.any(String))
+            expect(validUser.body).toHaveProperty('username', expect.any(String))
+            expect(validUser.status).toBe(200);
+        } catch (error) {
+            console.log(error)
+        }    
+    })
+
+    it('success facebook login with new email', async () => {
+        try {
+            const validUser = await request(app).post('/facebooklogin').send({email: 'kalyslasoma@mail.com'})
+            expect(validUser.body).toHaveProperty('access_token', expect.any(String))
+            expect(validUser.body).toHaveProperty('username', expect.any(String))
+            expect(validUser.status).toBe(201);
+        } catch (error) {
+            console.log(error)
+        }    
     })
 })
