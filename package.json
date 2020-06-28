@@ -6,6 +6,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
+    "dialogflow": "^1.2.0",
     "express": "^4.17.1",
     "jest": "^26.1.0",
     "jsonwebtoken": "^8.5.1",
@@ -18,7 +19,7 @@
     "dotenv": "^8.2.0"
   },
   "scripts": {
-    "test": "jest --detectOpenHandles --verbose --forceExit",
+    "test": "jest --detectOpenHandles --verbose --forceExit --coverage",
     "dev": "nodemon bin/server.js"
   },
   "keywords": [],

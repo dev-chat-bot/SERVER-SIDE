@@ -1,1 +1,5 @@
 SECRET=
+PROJECT_ID="training-agent-lcsitv"
+SESSION_ID="training-bot"
+LANGUAGE_CODE="en-US"
+PRIVATE_KEY=
