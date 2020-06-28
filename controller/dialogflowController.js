@@ -25,9 +25,9 @@ class DocumentationController {
       const result = responses[0].queryResult
       console.log("query:", result.queryText)
       console.log("response:", result.fulfillmentText)
-      res.json(result)
+      res.status(200).json(result)
     } catch (error) {
-      console.log(error)
+      res.status(500).json({error})
     }
   }
 }
