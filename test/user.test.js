@@ -88,4 +88,14 @@ describe('User Model Test', () => {
             console.log(error)
         }
     })
+
+    it('login failed because username/email does not exists not match', async () => {
+        try {
+            const validUser = await request(app).post('/login').send({username: 'asoudaisdnas', password: 'salahin'})
+            expect(validUser.body.error).toContain('user does\'nt exit')
+            expect(validUser.status).toBe(400);
+        } catch (error) {
+            console.log(error)
+        }
+    })
 })
