@@ -7,25 +7,28 @@ const sessionPath = sessionClient.sessionPath(projectId, sessionId)
 
 class DocumentationController {
   static async talkToDialogflow(req, res) {
-    const { text } = req.body
+    try {
+      const { text } = req.body
 
-    const request = {
-      session: sessionPath,
-      queryInput: {
-        text: {
-          text,
-          languageCode: languageCode,
+      const request = {
+        session: sessionPath,
+        queryInput: {
+          text: {
+            text,
+            languageCode: languageCode,
+          },
         },
-      },
-    }
+      }
 
-    const responses = await sessionClient.detectIntent(request)
-    console.log("Detected intent")
-    const result = responses[0].queryResult
-    console.log("query:", result.queryText)
-    console.log("response:", result.fulfillmentText)
-    console.log
-    res.json(result)
+      const responses = await sessionClient.detectIntent(request)
+      console.log("Detected intent")
+      const result = responses[0].queryResult
+      console.log("query:", result.queryText)
+      console.log("response:", result.fulfillmentText)
+      res.json(result)
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 

@@ -59,10 +59,50 @@ describe('User Model Test', () => {
         }
     })
 
-    it('register failed because one of the field is empty', async () => {
+    it('register failed because username is empty', async () => {
         try {
             const savedUser = await request(app).post('/register').send({...userData, username:''})
             expect(savedUser.body.error).toContain('field must not be empty')
+            expect(savedUser.status).toBe(400);
+        } catch (error) {
+            console.log(error)
+        }
+    })
+
+    it('register failed because email is empty', async () => {
+        try {
+            const savedUser = await request(app).post('/register').send({...userData, email:''})
+            expect(savedUser.body.error).toContain('field must not be empty')
+            expect(savedUser.status).toBe(400);
+        } catch (error) {
+            console.log(error)
+        }
+    })
+
+    it('register failed because password is empty', async () => {
+        try {
+            const savedUser = await request(app).post('/register').send({...userData, password: '', confirmPassword: ''})
+            expect(savedUser.body.error).toContain('field must not be empty')
+            expect(savedUser.status).toBe(400);
+        } catch (error) {
+            console.log(error)
+        }
+    })
+
+    it('register failed because invalid email type', async () => {
+        try {
+            const savedUser = await request(app).post('/register').send({...userData, email: 'asdad'})
+            expect(savedUser.body.error).toContain('please enter valid email')
+            expect(savedUser.status).toBe(400);
+        } catch (error) {
+            console.log(error)
+        }
+    })
+
+    it('register failed because password and confirmPassword not match', async () => {
+        try {
+            const savedUser = await request(app).post('/register').send({...userData, password: 'asdasda', confirmPassword: 'uwhdwudqwh'})
+            expect(savedUser.body.error).toContain('password not match')
             expect(savedUser.status).toBe(400);
         } catch (error) {
             console.log(error)
