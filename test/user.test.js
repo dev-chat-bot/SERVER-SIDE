@@ -19,7 +19,7 @@ afterAll( async () => {
 
 describe('User Model Test', () => {
     
-    it('register successfully', async () => {
+    it('success register', async () => {
         try {
             const savedUser = await request(app).post('/register').send(userData)
             expect(savedUser.body).toHaveProperty('access_token', expect.any(String))
@@ -109,7 +109,7 @@ describe('User Model Test', () => {
         }
     })
 
-    it('login successfully', async () => {
+    it('success login', async () => {
         try {
             const validUser = await request(app).post('/login').send(userData)
             expect(validUser.body).toHaveProperty('access_token', expect.any(String))
@@ -131,7 +131,7 @@ describe('User Model Test', () => {
 
     it('login failed because username/email does not exists not match', async () => {
         try {
-            const validUser = await request(app).post('/login').send({username: 'asoudaisdnas', password: 'salahin'})
+            const validUser = await request(app).post('/login').send({username: 'asoudaisdnas', password: 'kalys100'})
             expect(validUser.body.error).toContain('user does\'nt exit')
             expect(validUser.status).toBe(400);
         } catch (error) {
