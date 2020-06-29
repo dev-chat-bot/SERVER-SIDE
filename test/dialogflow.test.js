@@ -62,7 +62,7 @@ describe("Dialogflow Connection Test", () => {
       const response = await request(app)
         .post("/dialogflow")
         .set("token", token)
-        .send({text: ''})
+        .send({ text: "" })
       expect(response.body).toHaveProperty("error")
       expect(response.status).toBe(500)
     } catch (error) {

@@ -5,5 +5,6 @@ const AuthoAuthen = require("../middlewares/AuthoAuthen")
 
 router.use(AuthoAuthen.Authentication)
 router.post("/", dialogflowController.talkToDialogflow)
-
+router.post("/intents", dialogflowController.createNewIntent)
+router.get("/intents", dialogflowController.getAllIntents)
 module.exports = router
