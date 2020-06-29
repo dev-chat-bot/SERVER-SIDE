@@ -21,7 +21,10 @@ class UserController {
           email,
           username: user.username,
         })
-        res.status(200).json({ access_token, username })
+        res.status(200).json({ 
+            access_token, 
+            username 
+        })
       } else {
         res.status(400).json({ error: "password not match" })
       }
@@ -52,7 +55,10 @@ class UserController {
         email: newUser.email,
         username: newUser.username,
       })
-      res.status(201).json({ access_token, username: newUser.username })
+      res.status(201).json({ 
+          access_token, 
+          username: newUser.username 
+        })
     } catch (error) {
       if (error.keyValue) {
         if (error.keyValue.email) {
@@ -99,25 +105,35 @@ class UserController {
     try {
         let verifyToken = await verificationToken(google_token)
         email = verifyToken.email
-        let userEmail = await User.findOne({email})
-        if (userEmail) {
-            let { _id, username, email } = userEmail
-            let access_token = generateToken({ _id, username, email })
-            res.status(200).json({ access_token, username })
+        let user = await User.findOne({email})
+        if (user) {
+            let { _id, username, email } = user
+            let access_token = generateToken({ 
+                _id, 
+                username, 
+                email 
+            })
+            res.status(200).json({ 
+                access_token, 
+                username 
+            })
         } else {
-            let user = new User({
-            email,
-            username: email.split("@")[0],
-            password: process.env.PASSWORD,
-            confirmPassword: process.env.PASSWORD,
+            let newuser = new User({
+                email,
+                username: email.split("@")[0],
+                password: process.env.PASSWORD,
+                confirmPassword: process.env.PASSWORD,
             })
-            let newUser = await user.save()
+            let newUser = await newuser.save()
             let access_token = generateToken({
-            _id: newUser._id,
-            email: newUser.email,
-            username: newUser.username,
+                _id: newUser._id,
+                email: newUser.email,
+                username: newUser.username,
             })
-            res.status(201).json({ access_token, username: newUser.username })
+            res.status(201).json({ 
+                access_token, 
+                username: newUser.username 
+            })
         }
     } catch (error) {
         res.status(500).json({ error: "something went wrong" })
