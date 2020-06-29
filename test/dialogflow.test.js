@@ -37,8 +37,7 @@ describe("Dialogflow Connection Test", () => {
         .post("/dialogflow")
         .set("token", token)
         .send(userExpression)
-      expect(response.body).toHaveProperty("queryText")
-      expect(response.body).toHaveProperty("fulfillmentText")
+      expect(response.body).toContain(expect.any(String))
     } catch (error) {
       console.log(error)
     }

@@ -1,13 +1,13 @@
 const User = require("../model/User")
 const { comparePassword } = require("../helper/bcrypt")
 const { generateToken } = require("../helper/jwt")
+const verificationToken = require("../helper/googleOauth")
 
 class UserController {
   static async login(req, res) {
     let { username, password } = req.body
     try {
       let user = await User.findOne({ username })
-      console.log("ini user", user)
       if (!user) {
         user = await User.findOne({ email: username })
       }
@@ -93,32 +93,34 @@ class UserController {
     }
   }
 
-  static async facebookLogin(req, res) {
-    const { email } = req.body
+  static async googleLogin(req, res) {
+    const {google_token} = req.headers
+    let email
     try {
-      let userEmail = await User.findOne({ email })
-      if (userEmail) {
-        console.log(userEmail)
-        let { _id, username, email } = userEmail
-        let access_token = generateToken({ _id, username, email })
-        res.status(200).json({ access_token, username })
-      } else {
-        let user = new User({
-          email,
-          username: email.split("@")[0],
-          password: process.env.PASSWORD,
-          confirmPassword: process.env.PASSWORD,
-        })
-        let newUser = await user.save()
-        let access_token = generateToken({
-          _id: newUser._id,
-          email: newUser.email,
-          username: newUser.username,
-        })
-        res.status(201).json({ access_token, username: newUser.username })
-      }
+        let verifyToken = await verificationToken(google_token)
+        email = verifyToken.email
+        let userEmail = await User.findOne({email})
+        if (userEmail) {
+            let { _id, username, email } = userEmail
+            let access_token = generateToken({ _id, username, email })
+            res.status(200).json({ access_token, username })
+        } else {
+            let user = new User({
+            email,
+            username: email.split("@")[0],
+            password: process.env.PASSWORD,
+            confirmPassword: process.env.PASSWORD,
+            })
+            let newUser = await user.save()
+            let access_token = generateToken({
+            _id: newUser._id,
+            email: newUser.email,
+            username: newUser.username,
+            })
+            res.status(201).json({ access_token, username: newUser.username })
+        }
     } catch (error) {
-      res.status(500).json({ error: "something went wrong" })
+        res.status(500).json({ error: "something went wrong" })
     }
   }
 }
