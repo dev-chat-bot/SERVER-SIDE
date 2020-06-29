@@ -22,17 +22,15 @@ class DocumentationController {
       }
 
       const responses = await sessionClient.detectIntent(request)
-      console.log("Detected intent")
       const result = responses[0].queryResult
-      console.log("query:", result.queryText)
-      console.log("response:", result.fulfillmentText)
       const responseSystem = await Documentation.findOne({
         keyword: result.fulfillmentText,
       })
       if (responseSystem) {
-        console.log(responseSystem.data)
+        res.status(200).json(responseSystem.data)
+      } else {
+        res.status(200).json(result.fulfillmentText)
       }
-      res.status(200).json(result)
     } catch (error) {
       res.status(500).json({ error })
     }
