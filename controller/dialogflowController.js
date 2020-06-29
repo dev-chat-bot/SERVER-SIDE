@@ -29,6 +29,7 @@ class DocumentationController {
       if (responseSystem) {
         res.status(200).json(responseSystem.data)
       } else {
+        console.log(result.fulfillmentText)
         res.status(200).json(result.fulfillmentText)
       }
     } catch (error) {
