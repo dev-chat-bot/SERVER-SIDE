@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1593430434260" clover="3.2.0">
-  <project timestamp="1593430434260" name="All files">
-    <metrics statements="159" coveredstatements="135" conditionals="42" coveredconditionals="33" methods="14" coveredmethods="10" elements="215" coveredelements="178" complexity="0" loc="159" ncloc="159" packages="6" files="12" classes="12"/>
+<coverage generated="1593415459744" clover="3.2.0">
+  <project timestamp="1593415459744" name="All files">
+    <metrics statements="150" coveredstatements="145" conditionals="42" coveredconditionals="35" methods="11" coveredmethods="11" elements="203" coveredelements="191" complexity="0" loc="150" ncloc="150" packages="6" files="11" classes="11"/>
     <package name="SERVER-SIDE">
       <metrics statements="12" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="app.js" path="D:\LEARN\Hacktiv8\Phase 3\final project\SERVER-SIDE\app.js">
