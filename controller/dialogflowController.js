@@ -131,7 +131,6 @@ class DocumentationController {
           console.log(`\tName: ${outputContext.name}`)
         })
       })
-
       res.status(200).json(response)
     } catch (error) {
       /* istanbul ignore next */
