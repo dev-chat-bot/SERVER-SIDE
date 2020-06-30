@@ -118,7 +118,6 @@ class DocumentationController {
           console.log(`\tName: ${outputContext.name}`)
         })
       })
-
       res.status(200).json(response)
     } catch (error) {
       /* istanbul ignore next */
@@ -139,22 +138,6 @@ class DocumentationController {
       res.status(500).json(error)
     }
   }
-
-  // static async youtube(req, res){
-  //   const {keyword} = req.body
-  //   const word = keyword.split(' ').join('%')
-  //   try {
-  //     let youtube = await axios({
-  //       method: 'get',
-  //       url: `https://www.googleapis.com/youtube/v3/search?part=snippet&order=viewCount&q=${word}&type=video&key=${process.env.YOUTUBE_KEY}`,
-  //       // headers: 'Authorization: Bearer QUFFLUhqbW5zMW8wSkw4ZnlLTDFIQ05FWHNFd1Vvd1lOd3w='
-  //     })
-  //     res.status(200).json({videoId: youtube.data.items[0].id.videoId})      
-  //   } catch (error) {
-  //     res.status(500).json({error: 'something went wrong'})
-  //   }
-
-  // }
 }
 
 module.exports = DocumentationController
