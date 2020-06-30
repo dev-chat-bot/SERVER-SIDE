@@ -34,7 +34,16 @@ class DocumentationController {
         /* istanbul ignore next */
         res.status(200).json(responseSystem.data)
       } else {
-        res.status(200).json(result.fulfillmentText)
+        const tempArray = result.fulfillmentText.split(" ")
+        if (tempArray[tempArray.length - 1] === "youtube") {
+          const newArray = tempArray.filter((element) => {
+            return element !== "youtube"
+          })
+          const youtubeKeyword = newArray.join(" ")
+          console.log(youtubeKeyword)
+        } else {
+          res.status(200).json(result.fulfillmentText)
+        }
       }
     } catch (error) {
       /* istanbul ignore next */
