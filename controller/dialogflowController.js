@@ -29,28 +29,22 @@ class DocumentationController {
       const responseSystem = await Documentation.findOne({
         keyword: result.fulfillmentText,
       })
+      /* istanbul ignore next */
       if (responseSystem) {
+        /* istanbul ignore next */
         res.status(200).json(responseSystem.data)
       } else {
-        console.log(result.fulfillmentText)
         res.status(200).json(result.fulfillmentText)
       }
     } catch (error) {
+      /* istanbul ignore next */
       res.status(500).json({ error })
     }
   }
 
   static async createNewIntent(req, res) {
     try {
-      const displayName = "create express"
-      const trainingPhrasesParts = [
-        "configure express",
-        "setup express",
-        "create hello world in express",
-        "build express",
-      ]
-      const messageTexts = ["create express"]
-
+      const { displayName, trainingPhrasesParts, messageTexts } = req.body
       const agentPath = intentsClient.agentPath(process.env.PROJECT_ID)
       const trainingPhrases = []
 
@@ -88,8 +82,9 @@ class DocumentationController {
 
       const [response] = await intentsClient.createIntent(createIntentRequest)
       console.log(`Intent ${response.name} created`)
-      res.status(201).json(`Intent ${response.name} created`)
+      res.status(201).json(response)
     } catch (error) {
+      /* istanbul ignore next */
       res.status(500).json(error)
     }
   }
@@ -126,23 +121,40 @@ class DocumentationController {
 
       res.status(200).json(response)
     } catch (error) {
+      /* istanbul ignore next */
       res.status(500).json(error)
     }
   }
 
-  static async youtube(req, res){
+  static async deleteIntent(req, res) {
     try {
-      let youtube = await axios({
-        method: 'get',
-        url: 'https://www.googleapis.com/youtube/v3/search?part=snippet&order=viewCount&q=generate%20password%20using%20bcryptjs&type=video&key=AIzaSyBCslY3Ka7wWCbb5JQd6g5G5NJVZejbvbs',
-        // headers: 'Authorization: Bearer QUFFLUhqbW5zMW8wSkw4ZnlLTDFIQ05FWHNFd1Vvd1lOd3w='
-      })
-      console.log(youtube.data.items[0].id.videoId)      
+      const id = req.params.id
+      const intentPath = intentsClient.intentPath(process.env.PROJECT_ID, id)
+      const request = { name: intentPath }
+      const result = await intentsClient.deleteIntent(request)
+      console.log(`Intent ${intentPath} deleted`)
+      res.status(200).json(`Intent ${intentPath} deleted`)
     } catch (error) {
-      console.log(error)
+      /* istanbul ignore next */
+      res.status(500).json(error)
     }
-
   }
+
+  // static async youtube(req, res){
+  //   const {keyword} = req.body
+  //   const word = keyword.split(' ').join('%')
+  //   try {
+  //     let youtube = await axios({
+  //       method: 'get',
+  //       url: `https://www.googleapis.com/youtube/v3/search?part=snippet&order=viewCount&q=${word}&type=video&key=${process.env.YOUTUBE_KEY}`,
+  //       // headers: 'Authorization: Bearer QUFFLUhqbW5zMW8wSkw4ZnlLTDFIQ05FWHNFd1Vvd1lOd3w='
+  //     })
+  //     res.status(200).json({videoId: youtube.data.items[0].id.videoId})      
+  //   } catch (error) {
+  //     res.status(500).json({error: 'something went wrong'})
+  //   }
+
+  // }
 }
 
 module.exports = DocumentationController

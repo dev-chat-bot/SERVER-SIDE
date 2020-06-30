@@ -2,10 +2,22 @@ const request = require("supertest")
 const mongoose = require("mongoose")
 const User = require("../model/User")
 const app = require("../app")
+const { response } = require("express")
 const userExpression = {
   text: "hello",
 }
+const newIntentData = {
+  displayName: "create express",
+  trainingPhrasesParts: [
+    "configure express",
+    "setup express",
+    "create hello world in express",
+    "build express",
+  ],
+  messageTexts: ["create express"],
+}
 let token
+let id
 
 describe("Dialogflow Connection Test", () => {
 
@@ -70,4 +82,51 @@ describe("Dialogflow Connection Test", () => {
       done(error)
     }
   })
+
+  describe("Create New Intent Through Backend API", () => {
+    it("Successfully created new intent", async done => {
+      try {
+        const response = await request(app)
+          .post("/dialogflow/intents")
+          .set("token", token)
+          .send(newIntentData)
+        const tempArray = response.body.name.split("/")
+        id = tempArray[tempArray.length - 1]
+        expect(response.body).toHaveProperty("displayName")
+        expect(response.body).toHaveProperty("name")
+        done()
+      } catch (error) {
+        done(error)
+      }
+    })
+  })
+  
+  describe("Get List of ALL Intents in Dialogflow", () => {
+    it("Successfully get all intents list", async done => {
+      try {
+        const response = await request(app)
+          .get("/dialogflow/intents")
+          .set("token", token)
+        expect(response.body[0]).toHaveProperty("name")
+        done()
+      } catch (error) {
+        done(error)
+      }
+    })
+  })
+  
+  describe("Delete Selected Intent in Dialogflow", () => {
+    it("Successfully delete intent", async done => {
+      try {
+        const response = await request(app)
+          .delete(`/dialogflow/intents/${id}`)
+          .set("token", token)
+        expect(response.body).toContain("deleted")
+        done()
+      } catch (error) {
+        done(error)
+      }
+    })
+  })
 })
+

@@ -32,6 +32,7 @@ class UserController {
       if (error.message === "user does'nt exit") {
         res.status(400).json({ error: "user does'nt exit" })
       } else {
+        /* istanbul ignore next */
         res.status(500).json({ error: "something went wrong" })
       }
     }
@@ -94,6 +95,7 @@ class UserController {
       } else if (error.message) {
         res.status(400).json({ error: error.message })
       } else {
+        /* istanbul ignore next */
         res.status(500).json({ error: "something went wrong" })
       }
     }

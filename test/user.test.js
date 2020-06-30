@@ -1,8 +1,13 @@
-const mongoose = require('mongoose');
-const User = require('../model/User');
-const request = require('supertest')
-const app = require('../app');
-const userData = { email: 'kalys100@gmail.com', username: 'kalys100', password: 'kalys100', confirmPassword: 'kalys100' };
+const mongoose = require("mongoose")
+const User = require("../model/User")
+const request = require("supertest")
+const app = require("../app")
+const userData = {
+  email: "kalys100@gmail.com",
+  username: "kalys100",
+  password: "kalys100",
+  confirmPassword: "kalys100",
+}
 
 
 
