@@ -49,6 +49,7 @@ describe("Dialogflow Connection Test", () => {
         .set("token", token)
         .send(userExpression)
       expect(response.body).toEqual(expect.any(String))
+      expect(response.status).toBe(200)
       done()
     } catch (error) {
       done(error)

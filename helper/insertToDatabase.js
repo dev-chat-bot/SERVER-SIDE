@@ -24,6 +24,7 @@ module.exports = {
         const newDocumentation = await documentation.save()
         console.log(newDocumentation)
       } else {
+        /* istanbul ignore next */
         const newData = {
           keyword: messageTexts[0],
           data: [

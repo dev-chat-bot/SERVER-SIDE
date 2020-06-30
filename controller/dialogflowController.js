@@ -8,6 +8,7 @@ const sessionPath = sessionClient.sessionPath(projectId, sessionId)
 const Documentation = require("../model/Documentation")
 const intentsClient = new dialogflow2.IntentsClient()
 const { insertDocumentation } = require("../helper/insertToDatabase")
+const axios = require('axios')
 
 class DocumentationController {
   static async talkToDialogflow(req, res) {
@@ -39,8 +40,12 @@ class DocumentationController {
           const newArray = tempArray.filter((element) => {
             return element !== "youtube"
           })
-          const youtubeKeyword = newArray.join(" ")
-          console.log(youtubeKeyword)
+          const youtubeKeyword = newArray.join("%")
+          const youtubeVideo = await axios({
+            method: 'get',
+            url: `https://www.googleapis.com/youtube/v3/search?part=snippet&order=viewCount&q=${youtubeKeyword}&type=video&key=${process.env.YOUTUBE_KEY}`
+          })
+          res.status(200).json({videoId: youtubeVideo.data.items[0].id.videoId})
         } else {
           res.status(200).json(result.fulfillmentText)
         }
