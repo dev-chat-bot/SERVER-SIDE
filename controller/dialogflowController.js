@@ -7,7 +7,7 @@ const sessionClient = new dialogflow.SessionsClient()
 const sessionPath = sessionClient.sessionPath(projectId, sessionId)
 const Documentation = require("../model/Documentation")
 const intentsClient = new dialogflow2.IntentsClient()
-const axios = require('axios')
+const { insertDocumentation } = require("../helper/insertToDatabase")
 
 class DocumentationController {
   static async talkToDialogflow(req, res) {
@@ -44,8 +44,16 @@ class DocumentationController {
 
   static async createNewIntent(req, res) {
     try {
-      const { displayName, trainingPhrasesParts, messageTexts } = req.body
+      const {
+        displayName,
+        trainingPhrasesParts,
+        messageTexts,
+        snippet,
+        guide,
+      } = req.body
+
       const agentPath = intentsClient.agentPath(process.env.PROJECT_ID)
+
       const trainingPhrases = []
 
       trainingPhrasesParts.forEach((element) => {
@@ -81,6 +89,11 @@ class DocumentationController {
       }
 
       const [response] = await intentsClient.createIntent(createIntentRequest)
+
+      if (guide || snippet) {
+        insertDocumentation(guide, snippet, messageTexts)
+      }
+
       console.log(`Intent ${response.name} created`)
       res.status(201).json(response)
     } catch (error) {
