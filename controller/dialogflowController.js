@@ -28,28 +28,22 @@ class DocumentationController {
       const responseSystem = await Documentation.findOne({
         keyword: result.fulfillmentText,
       })
+      /* istanbul ignore next */
       if (responseSystem) {
+        /* istanbul ignore next */
         res.status(200).json(responseSystem.data)
       } else {
-        console.log(result.fulfillmentText)
         res.status(200).json(result.fulfillmentText)
       }
     } catch (error) {
+      /* istanbul ignore next */
       res.status(500).json({ error })
     }
   }
 
   static async createNewIntent(req, res) {
     try {
-      const displayName = "create express"
-      const trainingPhrasesParts = [
-        "configure express",
-        "setup express",
-        "create hello world in express",
-        "build express",
-      ]
-      const messageTexts = ["create express"]
-
+      const { displayName, trainingPhrasesParts, messageTexts } = req.body
       const agentPath = intentsClient.agentPath(process.env.PROJECT_ID)
       const trainingPhrases = []
 
@@ -87,8 +81,9 @@ class DocumentationController {
 
       const [response] = await intentsClient.createIntent(createIntentRequest)
       console.log(`Intent ${response.name} created`)
-      res.status(201).json(`Intent ${response.name} created`)
+      res.status(201).json(response)
     } catch (error) {
+      /* istanbul ignore next */
       res.status(500).json(error)
     }
   }
@@ -125,6 +120,21 @@ class DocumentationController {
 
       res.status(200).json(response)
     } catch (error) {
+      /* istanbul ignore next */
+      res.status(500).json(error)
+    }
+  }
+
+  static async deleteIntent(req, res) {
+    try {
+      const id = req.params.id
+      const intentPath = intentsClient.intentPath(process.env.PROJECT_ID, id)
+      const request = { name: intentPath }
+      const result = await intentsClient.deleteIntent(request)
+      console.log(`Intent ${intentPath} deleted`)
+      res.status(200).json(`Intent ${intentPath} deleted`)
+    } catch (error) {
+      /* istanbul ignore next */
       res.status(500).json(error)
     }
   }

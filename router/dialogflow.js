@@ -7,4 +7,5 @@ router.use(AuthoAuthen.Authentication)
 router.post("/", dialogflowController.talkToDialogflow)
 router.post("/intents", dialogflowController.createNewIntent)
 router.get("/intents", dialogflowController.getAllIntents)
+router.delete("/intents/:id", dialogflowController.deleteIntent)
 module.exports = router
