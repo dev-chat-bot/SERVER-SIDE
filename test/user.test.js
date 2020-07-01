@@ -11,17 +11,7 @@ const userData = {
 
 
 
-describe('User Model Test', () => {
-
-    beforeAll( async () => {
-        await mongoose.connect('mongodb://localhost:27017/adepsTest', { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }, (err) => {
-            if (err) {
-                console.error(err);
-                process.exit(1);
-            }
-        });
-    });
-    
+describe('User Model Test', () => {  
     afterAll( async () => {
         await User.deleteMany()
         await mongoose.connection.close()
