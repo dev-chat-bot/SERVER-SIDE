@@ -34,10 +34,10 @@ module.exports = {
             },
           ],
         }
-
+        /* istanbul ignore next */
         const documentation = new Documentation(newData)
+        /* istanbul ignore next */
         const newDocumentation = await documentation.save()
-        console.log(newDocumentation)
       }
     }
   },

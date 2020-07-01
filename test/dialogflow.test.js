@@ -1,8 +1,10 @@
 const request = require("supertest")
 const mongoose = require("mongoose")
 const User = require("../model/User")
+const Documentation = require("../model/Documentation")
 const app = require("../app")
 const { response } = require("express")
+const { insertDocumentation } = require("../helper/insertToDatabase")
 const userExpression = {
   text: "hello",
 }
@@ -15,14 +17,19 @@ const newIntentData = {
     "build express",
   ],
   messageTexts: ["create express"],
+  guide: "step by step",
+  snippet: "const array = [1,2,3]",
 }
 let token
 let id
+let databaseId
 
 describe("Dialogflow Connection Test", () => {
-
   beforeAll(async () => {
-    await mongoose.connect('mongodb://localhost:27017/adepsTest',{ useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true }, (err) => {
+    await mongoose.connect(
+      "mongodb://localhost:27017/adepsTest",
+      { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true },
+      (err) => {
         if (err) {
           console.error(err)
         }
@@ -36,13 +43,14 @@ describe("Dialogflow Connection Test", () => {
     })
     token = registerTest.body.access_token
   })
-  
+
   afterAll(async () => {
     await User.deleteMany({})
+    await Documentation.deleteMany({})
     await mongoose.connection.close()
   })
 
-  it("Successfully connected to dialogflow", async done => {
+  it("Successfully connected to dialogflow", async (done) => {
     try {
       const response = await request(app)
         .post("/dialogflow")
@@ -56,7 +64,7 @@ describe("Dialogflow Connection Test", () => {
     }
   })
 
-  it("failed connect to dialogflow because user is not login", async done => {
+  it("failed connect to dialogflow because user is not login", async (done) => {
     try {
       const response = await request(app)
         .post("/dialogflow")
@@ -64,13 +72,14 @@ describe("Dialogflow Connection Test", () => {
         .send(userExpression)
       expect(response.body.error).toContain("Please Login First")
       expect(response.status).toBe(400)
+
       done()
     } catch (error) {
       done(error)
     }
   })
 
-  it("failed connect to dialogflow because user is not login", async done => {
+  it("failed connect to dialogflow because user is not login", async (done) => {
     try {
       const response = await request(app)
         .post("/dialogflow")
@@ -85,7 +94,7 @@ describe("Dialogflow Connection Test", () => {
   })
 
   describe("Create New Intent Through Backend API", () => {
-    it("Successfully created new intent", async done => {
+    it("Successfully created new intent", async (done) => {
       try {
         const response = await request(app)
           .post("/dialogflow/intents")
@@ -101,9 +110,9 @@ describe("Dialogflow Connection Test", () => {
       }
     })
   })
-  
+
   describe("Get List of ALL Intents in Dialogflow", () => {
-    it("Successfully get all intents list", async done => {
+    it("Successfully get all intents list", async (done) => {
       try {
         const response = await request(app)
           .get("/dialogflow/intents")
@@ -115,9 +124,9 @@ describe("Dialogflow Connection Test", () => {
       }
     })
   })
-  
+
   describe("Delete Selected Intent in Dialogflow", () => {
-    it("Successfully delete intent", async done => {
+    it("Successfully delete intent", async (done) => {
       try {
         const response = await request(app)
           .delete(`/dialogflow/intents/${id}`)
@@ -130,4 +139,3 @@ describe("Dialogflow Connection Test", () => {
     })
   })
 })
-
